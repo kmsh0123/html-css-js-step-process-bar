@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="node_modules/animate.css/animate.css">
+</head>
+<style>
+    .images{
+        display: flex;
+        margin-bottom:5px;
+        flex-wrap: wrap;
+    }
+    img{
+        height: 100px;
+    }
+</style>
+<body>
+    <div class="images">
+        <img class="photo" src="https://upload.wikimedia.org/wikipedia/en/5/54/NSUNS4_game_cover.png" alt="">
+    </div>
+    <button class="del">DEL</button>
+    <input type="number" id="input" value="1">
+    <button class="btn">ADD</button>
+
+</body>
+    <script>
+        const images = document.querySelector(".images");
+        const originalImg = document.querySelector(".photo");
+        const btn = document.querySelector(".btn");
+        const del = document.querySelector(".del");
+        const input = document.querySelector("#input");
+
+        btn.onclick = _=>{
+            let newImg = new Image();
+            newImg.classList.add("animate__animated", "animate__backInLeft");
+            newImg.style.transition = 0.8 +"s";
+            newImg.style.marginLeft = -40+"px";
+            newImg.src = originalImg.src;
+            input.valueAsNumber += 1;
+            images.append(newImg);
+        }
+
+        del.addEventListener("click",_=>{
+         if(input.valueAsNumber > 1){
+             let lastImg =  images.lastChild;
+             lastImg.classList.replace("animate__backInLeft", "animate__backOutUp");
+             lastImg.addEventListener("animationend",_=>{
+                 lastImg.remove()
+             });
+             input.valueAsNumber -= 1;
+         }
+        })
+
+
+    </script>
+</html>
